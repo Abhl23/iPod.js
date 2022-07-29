@@ -7,7 +7,62 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* ------------------ Wheel-Component ------------------ */
+
+#wheel-container{
+  width: 20rem;
+  height: 16rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #cfcfcf;
+  /* border: 1px solid black; */
+}
+
+#wheel{
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  /* border: 1px solid black; */
+}
+
+#centre-button{
+  width: 5rem;
+  height: 5rem;
+  position: absolute;
+  border-radius: 50%;
+  background: rgb(225, 225, 225);
+  box-shadow: rgb(191, 191, 191) 0px 1em 3em inset;
+  /* border: 1px solid black; */
+}
+
+#wheel img{
+  position: absolute;
+}
+
+#wheel img:hover, #centre-button:hover{
+  cursor: pointer;
+}
+
+#menu-button{
+  top: 2rem;
+  width: 3.5rem;
+}
+
+#rewind-button{
+  left: 1.5rem;
+}
+
+#fast-forward-button{
+  right: 1.5rem;
+}
+
+#play-pause-button{
+  bottom: 2rem;
 }
