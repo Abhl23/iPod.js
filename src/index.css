@@ -1,22 +1,112 @@
 body {
   margin: 0;
+  height: 100vh;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* ------------------ Wheel-Component ------------------ */
+
+/* --------------------------- App-Component --------------------------- */
+
+#App{
+  width: 21rem;
+  height: 36rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 30px;
+  box-shadow: rgb(85, 85, 85) 0px 0px 2.4em inset;
+  background: linear-gradient(rgb(227, 227, 227) 0%, rgb(214, 214, 214) 100%);
+  border: 1px solid black;
+}
+
+
+/* --------------------------- Screen-Component --------------------------- */
+
+#main-screen{
+  width: 19rem;
+  height: 16.5rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+  background-image: url(assets/pablo.jpg);
+  background-position: center;
+  background-size: cover;
+  background-color: white;
+  border-radius: 10px;
+  border: 4px solid black;
+  overflow: hidden;
+}
+
+
+/* --------------------------- Menu-Component --------------------------- */
+
+#side-menu{
+  height: 100%;
+  width: 47%;
+  box-sizing: border-box;
+  /* padding-left: 10px; */
+  background-color: white;
+  display: none;
+}
+
+.display-side-menu{
+  display: block;
+  animation: slideLeft 1s ease-in-out;
+}
+
+@keyframes slideLeft{
+  from{
+    transform: translateY(-10px);
+  }
+
+  to{
+    transform: translateY(0px);
+  }
+}
+
+#status-bar{
+  padding: 5px 10px;
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+
+/* --------------------------- MenuItem-Component --------------------------- */
+
+
+.menu-item{
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+/* --------------------------- Wheel-Component --------------------------- */
 
 #wheel-container{
-  width: 20rem;
+  width: 19rem;
   height: 16rem;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #cfcfcf;
   /* border: 1px solid black; */
 }
 
@@ -65,4 +155,16 @@ body {
 
 #play-pause-button{
   bottom: 2rem;
+}
+
+
+/* --------------------------- Extra-classes --------------------------- */
+
+.active{
+  color: white;
+  background-color: #3691d0;
+}
+
+.hidden{
+  display: none;
 }
