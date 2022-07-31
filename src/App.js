@@ -13,7 +13,9 @@ class App extends React.Component{
       activeMenuItem : 0,
       isCoverflowVisible : false,
       isGamesVisible : false,
-      isSettingsVisible : false
+      isSettingsVisible : false,
+      musicItems : ['All Songs', 'Artists', 'Albums'],
+      isMusicMenuVisible : false
     };
     this.activeItem=0;
     this.angle=0;
@@ -23,20 +25,20 @@ class App extends React.Component{
     const wheel=document.getElementById('wheel');
     const region=ZingTouch.Region(wheel);
 
-    const {menuItems}=this.state;
-
     region.bind(wheel, 'rotate', (event) => {
       this.angle+=event.detail.distanceFromLast;
 
+      const {menuItems, musicItems, isMusicMenuVisible}=this.state;
+
       if(this.angle > 30){
-        this.activeItem=(++this.activeItem === menuItems.length? 0 : this.activeItem);
+        this.activeItem=(isMusicMenuVisible? (++this.activeItem === musicItems.length? 0 : this.activeItem) : (++this.activeItem === menuItems.length? 0 : this.activeItem));
 
         this.setState({activeMenuItem : this.activeItem});
 
         this.angle=0;
       }
       else if(this.angle < -30){
-        this.activeItem=(--this.activeItem < 0? 3 : this.activeItem);
+        this.activeItem=(isMusicMenuVisible? (--this.activeItem < 0? 2 : this.activeItem) : (--this.activeItem < 0? 3 : this.activeItem));
 
         this.setState({activeMenuItem : this.activeItem});
 
@@ -45,9 +47,24 @@ class App extends React.Component{
     });
   }
 
+  componentDidUpdate(){
+
+    const {isMusicMenuVisible}=this.state;
+
+    if(isMusicMenuVisible){
+      $('#side-menu').addClass('display-side-menu');  
+    }
+
+    return;
+  }
+
   handleMenuButtonClick = () => {
 
-    $('#side-menu').toggleClass('display-side-menu');
+    const {isMusicMenuVisible}=this.state;
+
+    if(!isMusicMenuVisible){
+      $('#side-menu').toggleClass('display-side-menu');
+    }
     
     this.activeItem=0;
 
@@ -55,7 +72,8 @@ class App extends React.Component{
       activeMenuItem : this.activeItem,
       isCoverflowVisible : false,
       isGamesVisible : false,
-      isSettingsVisible : false
+      isSettingsVisible : false,
+      isMusicMenuVisible : false
     });
   };
 
@@ -68,6 +86,15 @@ class App extends React.Component{
     if(activeMenuItem===0){
       this.setState({
         isCoverflowVisible : true
+      });
+    }
+    else if(activeMenuItem===1){
+
+      this.activeItem=0;
+
+      this.setState({
+        isMusicMenuVisible : true,
+        activeMenuItem : this.activeItem
       });
     }
     else if(activeMenuItem===2){
@@ -84,12 +111,12 @@ class App extends React.Component{
 
   render(){
 
-    const {menuItems, activeMenuItem, isCoverflowVisible, isGamesVisible, isSettingsVisible}=this.state;
+    const {menuItems, activeMenuItem, musicItems, isCoverflowVisible, isGamesVisible, isSettingsVisible, isMusicMenuVisible}=this.state;
 
     return (
       <div id="App">
         <Screen
-          menuItems={menuItems}
+          menuItems={isMusicMenuVisible? musicItems : menuItems}
           activeMenuItem={activeMenuItem}
           isCoverflowVisible={isCoverflowVisible}
           isGamesVisible={isGamesVisible}
