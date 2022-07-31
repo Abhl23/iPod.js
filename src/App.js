@@ -1,5 +1,6 @@
 import React from 'react';
 import ZingTouch from 'zingtouch';
+import $ from 'jquery';
 
 import Screen from './components/Screen';
 import Wheel from './components/Wheel';
@@ -9,7 +10,10 @@ class App extends React.Component{
     super();
     this.state={
       menuItems : ['Cover Flow', 'Music', 'Games', 'Settings'],
-      activeMenuItem : 0
+      activeMenuItem : 0,
+      isCoverflowVisible : false,
+      isGamesVisible : false,
+      isSettingsVisible : false
     };
     this.activeItem=0;
     this.angle=0;
@@ -42,20 +46,59 @@ class App extends React.Component{
   }
 
   handleMenuButtonClick = () => {
+
+    $('#side-menu').toggleClass('display-side-menu');
     
+    this.activeItem=0;
+
+    this.setState({
+      activeMenuItem : this.activeItem,
+      isCoverflowVisible : false,
+      isGamesVisible : false,
+      isSettingsVisible : false
+    });
+  };
+
+  handleCentreButtonClick = () => {
+
+    const {activeMenuItem}=this.state;
+
+    $('#side-menu').removeClass('display-side-menu');
+
+    if(activeMenuItem===0){
+      this.setState({
+        isCoverflowVisible : true
+      });
+    }
+    else if(activeMenuItem===2){
+      this.setState({
+        isGamesVisible : true
+      });
+    }
+    else{
+      this.setState({
+        isSettingsVisible : true
+      });
+    }
   };
 
   render(){
 
-    const {menuItems, activeMenuItem}=this.state;
+    const {menuItems, activeMenuItem, isCoverflowVisible, isGamesVisible, isSettingsVisible}=this.state;
 
     return (
       <div id="App">
         <Screen
           menuItems={menuItems}
-          activeMenuItem={activeMenuItem} 
+          activeMenuItem={activeMenuItem}
+          isCoverflowVisible={isCoverflowVisible}
+          isGamesVisible={isGamesVisible}
+          isSettingsVisible={isSettingsVisible}
         />
-        <Wheel />
+        <Wheel
+          onMenuButtonClick={this.handleMenuButtonClick}
+          onCentreButtonClick={this.handleCentreButtonClick}
+        />
       </div>
     );
   }

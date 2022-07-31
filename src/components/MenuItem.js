@@ -1,7 +1,7 @@
 const MenuItem = (props) => {
 
     const {itemName, activeMenuItem}=props;
-    // console.log(selectedItem);
+
     return (
         <div className={activeMenuItem? "menu-item active" : "menu-item"}>
                 <span>{itemName}</span>
