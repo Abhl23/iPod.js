@@ -5,7 +5,7 @@ import playpause from '../assets/play_pause.svg';
 
 const Wheel = (props) => {
 
-    const {onMenuButtonClick, onCentreButtonClick}=props;
+    const {onMenuButtonClick, onCentreButtonClick, onPlayPause}=props;
 
     return (
         <div id="wheel-container">
@@ -13,7 +13,7 @@ const Wheel = (props) => {
                 <img id="menu-button" src={menu} alt="menu" onClick={onMenuButtonClick} />
                 <img id="fast-forward-button" src={fastforward} alt="fast-forward" />
                 <img id="rewind-button" src={rewind} alt="rewind" />
-                <img id="play-pause-button" src={playpause} alt="play-pause" />
+                <img id="play-pause-button" src={playpause} alt="play-pause" onClick={onPlayPause} />
             </div>
             <div id="centre-button" onClick={onCentreButtonClick}></div>
         </div>
