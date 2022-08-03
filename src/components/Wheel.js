@@ -3,6 +3,8 @@ import fastforward from '../assets/fast_forward.svg';
 import rewind from '../assets/rewind.svg';
 import playpause from '../assets/play_pause.svg';
 
+import '../assets/css/Wheel.css';
+
 const Wheel = (props) => {
 
     const {onMenuButtonClick, onCentreButtonClick, onPlayPause}=props;

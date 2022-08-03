@@ -1,14 +1,18 @@
 import battery from '../assets/battery.svg';
 
+import '../assets/css/MusicPlayer.css';
+
 const MusicPlayer = (props) => {
 
     const {isMusicPlayerVisible, isMusicPlaying, isAutoPlayDone}=props;
 
     return (
+        // hides or display the MusicPlayer
         <div id="music-player" className={isMusicPlayerVisible? '' : 'hidden'}>
             <div id="status-bar">
                 <span>iPod.js</span>
                 <div>
+                    {/* displays the song status on the status bar */}
                     {isAutoPlayDone && (isMusicPlaying? <span><i className="fa-solid fa-music"></i></span> : <span><i className="fa-solid fa-pause"></i></span>)}
                     <span><img src={battery} alt="battery" style={{width : 30}} /></span>
                 </div>

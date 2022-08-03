@@ -4,6 +4,8 @@ import GamesScreen from './GamesScreen';
 import SettingsScreen from './SettingsScreen';
 import MusicPlayer from './MusicPlayer';
 
+import '../assets/css/Screen.css';
+
 const Screen = (props) => {
 
     const {menuItems, 
@@ -23,6 +25,7 @@ const Screen = (props) => {
                 isMusicPlaying={isMusicPlaying}
                 isAutoPlayDone={isAutoPlayDone}
             />
+            {/* conditional rendering of components */}
             {isCoverflowVisible? <Coverflow isMusicPlaying={isMusicPlaying} isAutoPlayDone={isAutoPlayDone} /> : ''}
             {isGamesVisible? <GamesScreen isMusicPlaying={isMusicPlaying} isAutoPlayDone={isAutoPlayDone} /> : ''}
             {isSettingsVisible? <SettingsScreen isMusicPlaying={isMusicPlaying} isAutoPlayDone={isAutoPlayDone} /> : ''}

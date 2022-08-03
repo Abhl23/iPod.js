@@ -1,3 +1,20 @@
+
+
+/* 
+
+    Innovative Functionality =>  
+      
+            1) Autoplays the song when you click on All Songs option.
+
+            2) Working play/pause buttons for controlling the music. They only work after Autoplay is activated.
+
+            3) You can play/pause the song from any screen in the iPod and the
+               song's status (whether it is playing or paused) will be displayed on the status bar. 
+
+
+*/
+
+
 import React from 'react';
 import ZingTouch from 'zingtouch';
 import $ from 'jquery';
@@ -7,12 +24,16 @@ import song from './assets/theRide.mp3';
 import Screen from './components/Screen';
 import Wheel from './components/Wheel';
 
+import './assets/css/App.css';
+
 class App extends React.Component{
   constructor(){
     super();
+
+    // boolean states taken for conditional rendering of respective components
     this.state={
       menuItems : ['Cover Flow', 'Music', 'Games', 'Settings'],
-      activeMenuItem : 0,
+      activeMenuItem : 0,                          // indicates the highlighted side menu item when using the rotate wheel functionality
       isCoverflowVisible : false,
       isGamesVisible : false,
       isSettingsVisible : false,
@@ -22,13 +43,14 @@ class App extends React.Component{
       isMusicPlaying : false,
       isAutoPlayDone : false
     };
-    this.activeItem=0;
+    this.activeItem=0;                    // indicates the highlighted side menu item when using the rotate wheel functionality
     this.angle=0;
-    this.audio=new Audio(song);
-    this.songTimestampId=undefined;
-    this.songBarId=undefined;
+    this.audio=new Audio(song);    // imported song
+    this.songTimestampId=undefined;      
+    this.songBarId=undefined;     
   }
 
+  // applying the rotate wheel functionality
   componentDidMount(){
     const wheel=document.getElementById('wheel');
     const region=ZingTouch.Region(wheel);
@@ -38,14 +60,17 @@ class App extends React.Component{
 
       const {menuItems, musicItems, isMusicMenuVisible}=this.state;
 
-      if(this.angle > 30){
+      if(this.angle > 30){         // if the angle is greater than 30 you'll move one item downward in the side menu 
+
+        // setting the activeItem according to the type of side menu visible
         this.activeItem=(isMusicMenuVisible? (++this.activeItem === musicItems.length? 0 : this.activeItem) : (++this.activeItem === menuItems.length? 0 : this.activeItem));
 
         this.setState({activeMenuItem : this.activeItem});
 
         this.angle=0;
       }
-      else if(this.angle < -30){
+      else if(this.angle < -30){            // if the angle is greater than 30 you'll move one item upward in the side menu
+        
         this.activeItem=(isMusicMenuVisible? (--this.activeItem < 0? 2 : this.activeItem) : (--this.activeItem < 0? 3 : this.activeItem));
 
         this.setState({activeMenuItem : this.activeItem});
@@ -60,7 +85,7 @@ class App extends React.Component{
     const {isMusicMenuVisible}=this.state;
 
     if(isMusicMenuVisible){
-      $('#side-menu').addClass('display-side-menu');  
+      $('#side-menu').addClass('display-side-menu');      // displays the music side-menu if it is set to visible
     }
 
     return;
@@ -71,17 +96,17 @@ class App extends React.Component{
     const {isMusicMenuVisible, isMusicPlayerVisible}=this.state;
 
     if(!isMusicMenuVisible){
-      $('#side-menu').toggleClass('display-side-menu');
+      $('#side-menu').toggleClass('display-side-menu');      // handles the displaying of main side menu
     }
     
-    this.activeItem=0;
+    this.activeItem=0;              // sets the activeItem to the topmost item whenever you click the menu button
 
     this.setState({
       activeMenuItem : this.activeItem,
       isCoverflowVisible : false,
       isGamesVisible : false,
       isSettingsVisible : false,
-      isMusicMenuVisible : (isMusicPlayerVisible? true : false),
+      isMusicMenuVisible : (isMusicPlayerVisible? true : false),          // takes you back to the music side-menu if the music player is visible
       isMusicPlayerVisible : false
     });
   };
@@ -90,9 +115,12 @@ class App extends React.Component{
 
     const {activeMenuItem, isMusicMenuVisible, isAutoPlayDone}=this.state;
 
-    $('#side-menu').removeClass('display-side-menu');
+    // condition to not removeClass when clicked on either 'Artists' or 'Albums' list items
+    if(!(isMusicMenuVisible && (activeMenuItem===1 || activeMenuItem===2))){
+      $('#side-menu').removeClass('display-side-menu');         // hides the side menu
+    }
 
-    if(isMusicMenuVisible && activeMenuItem===0){
+    if(isMusicMenuVisible && activeMenuItem===0){           // autoplays the song and display the Music Player
 
       if(!isAutoPlayDone){
         this.handleAutoPlay();
@@ -104,12 +132,12 @@ class App extends React.Component{
         isMusicMenuVisible : false
       });
     }
-    else if(!isMusicMenuVisible && activeMenuItem===0){
+    else if(!isMusicMenuVisible && activeMenuItem===0){               // displays the Coverflow screen
       this.setState({
         isCoverflowVisible : true
       });
     }
-    else if(!isMusicMenuVisible && activeMenuItem===1){
+    else if(!isMusicMenuVisible && activeMenuItem===1){                  // displays the music side-menu
 
       this.activeItem=0;
 
@@ -118,19 +146,19 @@ class App extends React.Component{
         activeMenuItem : this.activeItem
       });
     }
-    else if(!isMusicMenuVisible && activeMenuItem===2){
+    else if(!isMusicMenuVisible && activeMenuItem===2){                 // displays the Games screen
       this.setState({
         isGamesVisible : true
       });
     }
-    else{
+    else if(!isMusicMenuVisible && activeMenuItem===3){            // displays the Settings screen
       this.setState({
         isSettingsVisible : true
       });
     }
   };
 
-  handleAutoPlay = () => {
+  handleAutoPlay = () => {        // handles autoplay of the song on clicking the 'All Songs' option
     this.audio.play();
 
     this.setState({
@@ -144,8 +172,7 @@ class App extends React.Component{
     });
   }
 
-  handleSongTimestamp = () => {
-    console.log('play');
+  handleSongTimestamp = () => {           // updates the song timestamp
 
     const song=this.audio;
     
@@ -165,7 +192,7 @@ class App extends React.Component{
     }, 1000);
   }
 
-  handleSongBarWidth = () => {
+  handleSongBarWidth = () => {            // fills the song bar
     const song=this.audio;
 
     this.songBarId=setInterval(() => {
@@ -184,7 +211,7 @@ class App extends React.Component{
     clearInterval(this.songTimestampId);
     clearInterval(this.songBarId);
     this.setState({
-      isMusicPlaying : false,
+      isMusicPlaying : false,             // resets the states of the song after it is completed
       isAutoPlayDone : false
     });
   }
@@ -192,9 +219,9 @@ class App extends React.Component{
   handlePlayPause = () => {
     const {isMusicPlaying, isAutoPlayDone}=this.state;
 
-    if(isMusicPlaying){
+    if(isMusicPlaying){           // handles pausing the song
       this.audio.pause();
-      console.log('pause');
+
       clearInterval(this.songTimestampId);
       clearInterval(this.songBarId);
 
@@ -202,7 +229,7 @@ class App extends React.Component{
         isMusicPlaying : false
       });
     }
-    else if(isAutoPlayDone && !isMusicPlaying){
+    else if(isAutoPlayDone && !isMusicPlaying){         // handles playing the song
       this.audio.play();
 
       this.handleSongTimestamp();
@@ -231,7 +258,7 @@ class App extends React.Component{
     return (
       <div id="App">
         <Screen
-          menuItems={isMusicMenuVisible? musicItems : menuItems}
+          menuItems={isMusicMenuVisible? musicItems : menuItems}      // passes the side-menu items according to the menu visible
           activeMenuItem={activeMenuItem}
           isCoverflowVisible={isCoverflowVisible}
           isGamesVisible={isGamesVisible}
