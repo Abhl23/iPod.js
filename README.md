@@ -1,3 +1,18 @@
+# Libraries used in the Project
+
+zingtouch => A JavaScript gesture detection library used for adding event listener to capture rotation around the wheel.
+
+jQuery => A JavaScript library used to handle things like HTML document traversal and manipulation, event handling, animation etc.
+
+
+# Features
+1. Autoplays the song when you click on All Songs option.
+
+2. Working play/pause buttons for controlling the music. They only work after Autoplay is activated.
+
+3. You can play/pause the song from any screen in the iPod and the song's status (whether it is playing or paused) will be displayed on the status bar.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
