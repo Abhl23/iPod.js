@@ -1,0 +1,25 @@
+/* --------------------------- Menu-Component --------------------------- */
+
+#side-menu{
+    height: 100%;
+    width: 47%;
+    box-sizing: border-box;
+    background-color: white;
+    display: none;
+}
+  
+.display-side-menu{
+   display: block !important;
+   animation: slideLeft 0.2s ease-in-out;
+}
+  
+@keyframes slideLeft{
+    from{
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+  
+    to{
+      transform: translateX(0px);
+    }
+}

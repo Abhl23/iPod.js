@@ -1,0 +1,10 @@
+/* --------------------------- MenuItem-Component --------------------------- */
+
+
+.menu-item{
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+}

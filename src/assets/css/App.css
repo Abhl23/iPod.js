@@ -1,0 +1,14 @@
+/* --------------------------- App-Component --------------------------- */
+
+#App{
+    width: 21rem;
+    height: 36rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 30px;
+    box-shadow: rgb(85, 85, 85) 0px 0px 2.4em inset;
+    background: linear-gradient(rgb(227, 227, 227) 0%, rgb(214, 214, 214) 100%);
+  }

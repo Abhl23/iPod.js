@@ -1,0 +1,15 @@
+/* --------------------------- Screen-Component --------------------------- */
+
+#main-screen{
+    width: 19rem;
+    height: 16.5rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+    background-image: url(../pablo.jpg);
+    background-position: center;
+    background-size: cover;
+    background-color: white;
+    border-radius: 10px;
+    border: 4px solid black;
+    overflow: hidden;
+}
